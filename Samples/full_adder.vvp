@@ -1,0 +1,127 @@
+#! c:/iverilog-x64/bin/vvp
+:ivl_version "10.1 (stable)" "(v10_1_1)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0000000000bbe170 .scope module, "full_adder_tb" "full_adder_tb" 2 3;
+ .timescale 0 0;
+v00000000021edb70_0 .var "a", 0 0;
+v00000000021edc10_0 .var "b", 0 0;
+v00000000021edcb0_0 .var "cin", 0 0;
+v00000000021edd50_0 .var "clock", 0 0;
+v00000000021eddf0_0 .net "cout", 0 0, v00000000021eda30_0;  1 drivers
+v00000000021ede90_0 .net "sum", 0 0, v00000000021edad0_0;  1 drivers
+S_0000000000bb7490 .scope module, "U_full_adder" "full_adder" 2 46, 3 1 0, S_0000000000bbe170;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "clock"
+    .port_info 1 /INPUT 1 "a"
+    .port_info 2 /INPUT 1 "b"
+    .port_info 3 /INPUT 1 "cin"
+    .port_info 4 /OUTPUT 1 "sum"
+    .port_info 5 /OUTPUT 1 "cout"
+v0000000000bb7790_0 .net "a", 0 0, v00000000021edb70_0;  1 drivers
+v0000000000bbe2f0_0 .net "b", 0 0, v00000000021edc10_0;  1 drivers
+v0000000000bbe390_0 .net "cin", 0 0, v00000000021edcb0_0;  1 drivers
+v00000000021ed990_0 .net "clock", 0 0, v00000000021edd50_0;  1 drivers
+v00000000021eda30_0 .var "cout", 0 0;
+v00000000021edad0_0 .var "sum", 0 0;
+E_00000000021983d0 .event posedge, v00000000021ed990_0;
+S_0000000000bb7610 .scope begin, "Full_Adder" "Full_Adder" 3 12, 3 12 0, S_0000000000bb7490;
+ .timescale 0 0;
+v0000000000bb7e30_0 .var *"_s0", 0 0; Local signal
+v000000000219a9f0_0 .var *"_s1", 0 0; Local signal
+    .scope S_0000000000bb7490;
+T_0 ;
+    %wait E_00000000021983d0;
+    %fork t_1, S_0000000000bb7610;
+    %jmp t_0;
+    .scope S_0000000000bb7610;
+t_1 ;
+    %load/vec4 v0000000000bb7790_0;
+    %load/vec4 v0000000000bbe2f0_0;
+    %xor;
+    %load/vec4 v0000000000bbe390_0;
+    %xor;
+    %store/vec4 v0000000000bb7e30_0, 0, 1;
+    %pushi/vec4 1, 0, 64;
+    %ix/vec4 4;
+    %delayx 4;
+    %load/vec4 v0000000000bb7e30_0;
+    %store/vec4 v00000000021edad0_0, 0, 1;
+    %load/vec4 v0000000000bb7790_0;
+    %load/vec4 v0000000000bbe2f0_0;
+    %and;
+    %load/vec4 v0000000000bbe390_0;
+    %load/vec4 v0000000000bb7790_0;
+    %and;
+    %or;
+    %load/vec4 v0000000000bbe390_0;
+    %load/vec4 v0000000000bbe2f0_0;
+    %and;
+    %or;
+    %store/vec4 v000000000219a9f0_0, 0, 1;
+    %pushi/vec4 1, 0, 64;
+    %ix/vec4 4;
+    %delayx 4;
+    %load/vec4 v000000000219a9f0_0;
+    %store/vec4 v00000000021eda30_0, 0, 1;
+    %end;
+    .scope S_0000000000bb7490;
+t_0 %join;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_0000000000bbe170;
+T_1 ;
+    %vpi_call 2 9 "$dumpfile", "full_adder.vcd" {0 0 0};
+    %vpi_call 2 10 "$dumpvars", 32'sb00000000000000000000000000000000, v00000000021edb70_0, v00000000021edc10_0, v00000000021edcb0_0, v00000000021ede90_0, v00000000021eddf0_0, v00000000021edd50_0 {0 0 0};
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v00000000021edd50_0, 0, 1;
+    %delay 5, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v00000000021edb70_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v00000000021edc10_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v00000000021edcb0_0, 0, 1;
+    %delay 10, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v00000000021edb70_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v00000000021edc10_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v00000000021edcb0_0, 0, 1;
+    %delay 10, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v00000000021edb70_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v00000000021edc10_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v00000000021edcb0_0, 0, 1;
+    %delay 10, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v00000000021edb70_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v00000000021edc10_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v00000000021edcb0_0, 0, 1;
+    %delay 10, 0;
+    %vpi_call 2 37 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+    .scope S_0000000000bbe170;
+T_2 ;
+    %delay 5, 0;
+    %load/vec4 v00000000021edd50_0;
+    %inv;
+    %store/vec4 v00000000021edd50_0, 0, 1;
+    %jmp T_2;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "full_adder_tb.v";
+    "./full_adder.v";
