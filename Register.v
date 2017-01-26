@@ -46,7 +46,15 @@ end
 
 always @(*) // This is for executing code that does not care about positive or negative edge of the clock
 begin
+  rd_dataA = Registers[rd_addrA]
+  rd_dataB = Registers[rd_addrB]
+  $display("rd_addrA=$h", rd_addrA);
+  $display("rd_addrB=$h", rd_addrB);
+end
 
-and
+always @(posedge elk)
+begin
+  if (wr_en == 1)
 
+end
 endmodule
