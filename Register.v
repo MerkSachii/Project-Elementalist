@@ -11,11 +11,11 @@ input [4:0]   rd_addrA;
 input [4:0]   rd_addrB;
 input [4:0]   wr_addr;
 input [31:0]  wr_data;
-input         wr_en;
-input         elk;
-input         nrst;
+input wire    wr_en;
+input wire    elk;
+input wire    nrst;
 // Output port declaration
-output [31:0] rd_dataA;
-output [31:0] rd_dataB;
+output reg [31:0] rd_dataA;
+output reg [31:0] rd_dataB;
 
 endmodule
