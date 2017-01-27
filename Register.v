@@ -46,12 +46,16 @@ initial begin
         Registers[31] <= 32'b0;
 end
 
-always @(*) // This is for executing code that does not care about positive or negative edge of the clock
+always @(rd_addrA) // This is for executing code that does not care about positive or negative edge of the clock
 begin
-  Registers[rd_addrA] = rd_dataA;
-  Registers[rd_addrB] = rd_dataB;
-  $display("rd_addrA=$h", rd_addrA);
-  $display("rd_addrB=$h", rd_addrB);
+  rd_dataA = #1 Registers[rd_addrA];
+  $display("rd_dataA=%h", rd_dataA);
+end
+
+always @(rd_addrB) // This is for executing code that does not care about positive or negative edge of the clock
+begin
+  rd_dataB = #1 Registers[rd_addrB];
+  $display("rd_dataB=%h", rd_dataB);
 end
 
 always @(posedge elk)
@@ -61,7 +65,7 @@ begin
 
   if(nrst == 1)
   begin
-    
+
     for(ctr = 1; ctr < 32; ctr++)
     begin
       Registers[ctr] <= 32'h00000000;
