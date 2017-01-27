@@ -16,7 +16,7 @@ input wire    elk;
 input wire    nrst;
 // Output port declaration
 output reg [31:0] rd_dataA;
-output reg[31:0] rd_dataB;
+output reg [31:0] rd_dataB;
 
 integer ctr;
 
@@ -24,7 +24,7 @@ reg [31:0] Registers [0:31];
 
 initial begin
         Registers[0] <= 32'h00000000;
-        Registers[8] <= 32'h00000000;
+        Registers[1] <= 32'h11111110;
         Registers[9] <= 32'h00000000;
         Registers[10] <= 32'h00000000;
         Registers[11] <= 32'h00000000;
@@ -70,6 +70,9 @@ begin
     begin
       Registers[ctr] <= 32'h00000000;
     end // end for loop
+
+    for(ctr = 1; ctr < 5; ctr++)
+      $display("R[%d]: %h", ctr, Registers[ctr]);
 
   end // end if statement
 

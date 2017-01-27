@@ -13,7 +13,9 @@ initial begin
   a = 1'b1;
   b = 1'b0;
   cin = 1'b0;
-  // sum = 1
+  $display("Sum: ", sum);
+  $display("Cout:", cout);
+  // sum = 0
   // cout = 0
   #10
   a = 1'b1;
