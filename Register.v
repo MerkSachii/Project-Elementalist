@@ -1,4 +1,4 @@
-module register_file(
+module register(
   wr_en, wr_addr, wr_data,
   rd_addrA, rd_addrB,
   rd_dataA, rd_dataB,
@@ -11,12 +11,14 @@ input [4:0]   rd_addrA;
 input [4:0]   rd_addrB;
 input [4:0]   wr_addr;
 input [31:0]  wr_data;
-input         wr_en;
-input         elk;
-input         nrst;
+input        wr_en;
+input wire    elk;
+input wire    nrst;
 // Output port declaration
 output     [31:0] rd_dataA;
 output      [31:0] rd_dataB;
+
+integer ctr;
 
 reg [31:0] Registers [0:31];
 
@@ -46,15 +48,27 @@ end
 
 always @(*) // This is for executing code that does not care about positive or negative edge of the clock
 begin
-  rd_dataA = Registers[rd_addrA]
-  rd_dataB = Registers[rd_addrB]
+  Registers[rd_addrA] = rd_dataA;
+  Registers[rd_addrB] = rd_dataB;
   $display("rd_addrA=$h", rd_addrA);
   $display("rd_addrB=$h", rd_addrB);
 end
 
 always @(posedge elk)
 begin
-  if (wr_en == 1)
+  if(wr_en == 1)
+    Registers[wr_addr] = wr_data; // for testing only
 
-end
+  if(nrst == 1)
+  begin
+    
+    for(ctr = 1; ctr < 32; ctr++)
+    begin
+      Registers[ctr] <= 32'h00000000;
+    end // end for loop
+
+  end // end if statement
+
+end // end always positive edge
+
 endmodule
