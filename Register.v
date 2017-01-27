@@ -15,8 +15,8 @@ input        wr_en;
 input wire    elk;
 input wire    nrst;
 // Output port declaration
-output     [31:0] rd_dataA;
-output      [31:0] rd_dataB;
+output reg [31:0] rd_dataA;
+output reg[31:0] rd_dataB;
 
 integer ctr;
 
