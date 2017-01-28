@@ -65,20 +65,22 @@ begin
       $display("That is not allowed");
     else
       #6 Registers[wr_addr] = wr_data; // for testing only
+end // end always positive edge
 
+always @(nrst)
+begin
   if(nrst == 1)
   begin
 
-    for(ctr = 1; ctr < 32; ctr++)
+    for(ctr = 1; ctr < 31; ctr++)
     begin
-      #1 Registers[ctr] <= 32'h00000000;
+      #1 Registers[ctr] <= 32'h00000120;
     end // end for loop
 
-    for(ctr = 1; ctr < 5; ctr++)
+    for(ctr = 9; ctr < 14; ctr++)
       $display("R[%d]: %h", ctr, Registers[ctr]);
 
-  end // end if statement
-
-end // end always positive edge
+    end // end if statement
+end
 
 endmodule
