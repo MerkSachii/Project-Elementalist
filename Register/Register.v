@@ -24,7 +24,7 @@ reg [31:0] Registers [0:31];
 
 initial begin
         Registers[0] <= 32'h00000000;
-        Registers[1] <= 32'h11111110;
+        Registers[1] <= 32'h00000000;
         Registers[9] <= 32'h00000000;
         Registers[10] <= 32'h00000000;
         Registers[11] <= 32'h00000000;
@@ -74,10 +74,10 @@ begin
 
     for(ctr = 1; ctr < 31; ctr++)
     begin
-      #1 Registers[ctr] <= 32'h00000120;
+      #1 Registers[ctr] <= 32'h00000000;
     end // end for loop
 
-    for(ctr = 9; ctr < 14; ctr++)
+    for(ctr = 0; ctr < 32; ctr++)
       $display("R[%d]: %h", ctr, Registers[ctr]);
 
     end // end if statement
