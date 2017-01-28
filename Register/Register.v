@@ -49,13 +49,13 @@ end
 always @(rd_addrA) // This is for executing code that does not care about positive or negative edge of the clock
 begin
   rd_dataA = #1 Registers[rd_addrA];
-  $display("Eto yung result ng rd_dataA=%d", rd_dataA);
+  $display("This is the result of rd_dataA=%d", rd_dataA);
 end
 
 always @(rd_addrB) // This is for executing code that does not care about positive or negative edge of the clock
 begin
   rd_dataB = #1 Registers[rd_addrB];
-  $display("Eto yung result ng rd_dataB=%d", rd_dataB);
+  $display("This is the result of rd_dataB=%d", rd_dataB);
 end
 
 always @(posedge elk)
