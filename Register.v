@@ -61,6 +61,8 @@ end
 always @(posedge elk)
 begin
   if(wr_en == 1)
+    if(wr_addr == 0)
+      $display("That is not allowed");
     Registers[wr_addr] = wr_data; // for testing only
 
   if(nrst == 1)
