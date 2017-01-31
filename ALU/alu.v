@@ -34,6 +34,7 @@ module alu(
 		// Subtraction
 		else if(sel == 3'b001) begin
 			{c, res} = opA - opB;
+			c = ~c;
 			$display("%b", res);
 			if(res == 32'h00000000)
 				z = 1;
