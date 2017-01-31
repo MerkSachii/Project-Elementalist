@@ -1,8 +1,8 @@
-module register(
+module regfile(
   wr_en, wr_addr, wr_data,
   rd_addrA, rd_addrB,
   rd_dataA, rd_dataB,
-  elk,
+  clk,
   nrst
 );
 
@@ -12,7 +12,7 @@ input [4:0]   rd_addrB;
 input [4:0]   wr_addr;
 input [31:0]  wr_data;
 input        wr_en;
-input wire    elk;
+input wire    clk;
 input wire    nrst;
 // Output port declaration
 output reg [31:0] rd_dataA;
@@ -25,6 +25,13 @@ reg [31:0] Registers [0:31];
 initial begin
         Registers[0] <= 32'h00000000;
         Registers[1] <= 32'h00000000;
+        Registers[2] <= 32'h00000000;
+        Registers[3] <= 32'h00000000;
+        Registers[4] <= 32'h00000000;
+        Registers[5] <= 32'h00000000;
+        Registers[6] <= 32'h00000000;
+        Registers[7] <= 32'h00000000;
+        Registers[8] <= 32'h00000000;
         Registers[9] <= 32'h00000000;
         Registers[10] <= 32'h00000000;
         Registers[11] <= 32'h00000000;
@@ -48,30 +55,36 @@ end
 
 always @(rd_addrA) // This is for executing code that does not care about positive or negative edge of the clock
 begin
-  rd_dataA = #1 Registers[rd_addrA];
+  rd_dataA = Registers[rd_addrA];
+  $display("addr: %d", rd_addrA);
   $display("This is the result of rd_dataA=%d", rd_dataA);
+  if(rd_addrA == 0)
+    rd_dataA = 0;
 end
 
 always @(rd_addrB) // This is for executing code that does not care about positive or negative edge of the clock
 begin
-  rd_dataB = #1 Registers[rd_addrB];
+  rd_dataB = Registers[rd_addrB];
+  $display("addr: %d", rd_addrB);
   $display("This is the result of rd_dataB=%d", rd_dataB);
+  if(rd_addrB == 0)
+    rd_dataB = 0;
 end
 
-always @(posedge elk)
+always @(posedge clk)
 begin
   if(wr_en == 1)
     if(wr_addr == 0)
       $display("That is not allowed");
     else
-      #6 Registers[wr_addr] = wr_data; // for testing only
+      Registers[wr_addr] <= wr_data; // for testing only
 
-  if(nrst == 1)
+  if(nrst == 0)
   begin
 
-    for(ctr = 1; ctr < 32; ctr++)
+    for(ctr = 0; ctr < 32; ctr++)
     begin
-      #1 Registers[ctr] <= 32'h00000000;
+      Registers[ctr] <= 32'h00000000;
     end // end for loop
 
     for(ctr = 0; ctr < 32; ctr++)
