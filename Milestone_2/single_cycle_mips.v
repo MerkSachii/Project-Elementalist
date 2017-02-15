@@ -1,11 +1,11 @@
 module single_cycle_mips (
-  elk,
+  clk,
   rst_n,
   inst_addr, inst,
   data_addr, data_in, data_out, data_wr
 );
   // INPUT
-  input elk;
+  input clk;
   input rst_n;
   input [31:0] inst;
   input [31:0] data_in;
