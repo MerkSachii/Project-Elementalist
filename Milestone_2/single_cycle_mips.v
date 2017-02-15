@@ -16,8 +16,8 @@ module single_cycle_mips(
   output reg [31:0] inst_addr;
   output reg [31:0] inst_temp;
 
-  wire [4:0]   rd_addrA;
-  wire [4:0]   rd_addrB;
+  output reg [4:0]   rd_addrA;
+  output reg [4:0]   rd_addrB;
   output reg [4:0]   wr_addr;
   output reg [31:0]  wr_data;
   wire        wr_en;
@@ -26,6 +26,9 @@ module single_cycle_mips(
   // Output port declaration
   wire [31:0] rd_dataA;
   wire [31:0] rd_dataB;
+
+  output reg [31:0] inRS;
+  output reg [31:0] inRT;
 
   wire dclk;
   wire [31:0] ddata_addr, ddata_out;
@@ -41,7 +44,7 @@ module single_cycle_mips(
   wire d_wr;
   regfile RegFile(wr_en,wr_addr,wr_data,rd_addrA,rd_addrB,rd_dataA,rd_dataB,clk,nrst);
   instmem Instruction(IMinst, IMinst_addr, clk);
-  alu ALLAHU(inInst,clk,result,d_wr);
+  alu ALLAHU(inInst,clk,result,d_wr, inRS, inRT);
   datamem dm(dclk, ddata_addr, ddata_wr, ddata_in, ddata_out);
 initial begin
   inst_temp <= 32'd0;
@@ -57,6 +60,11 @@ end
 
 always @(inst) begin
   inInst = inst;
+  rd_addrA = inst[25:21];
+  rd_addrB = inst[20:16];
+  inRS = rd_dataA;
+  inRT = rd_dataB;
+
   if(d_wr == 0) begin
     wr_data = result;
     wr_addr = inst[15:11];

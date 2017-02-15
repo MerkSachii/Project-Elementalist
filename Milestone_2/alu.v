@@ -1,8 +1,9 @@
-module alu (inInst, clk, result, d_wr);
+module alu (inInst, clk, result, d_wr, inRS, inRT);
   input clk;
   // 32-bit Instuction
   input [31:0] inInst;
-
+  input [31:0] inRS;
+  input [31:0] inRT;
   reg [4:0]   rs;
   reg [4:0]   rt;
   reg [4:0]   rd;
@@ -12,6 +13,8 @@ module alu (inInst, clk, result, d_wr);
   reg [31:0] result;
   output reg d_wr;
   reg [31:0] mem_temp;
+
+
 
   initial begin
     d_wr = 0;
