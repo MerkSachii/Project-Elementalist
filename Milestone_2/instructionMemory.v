@@ -1,8 +1,8 @@
-module instruction(inst, pc, clk);
+module instruction(IMinst, IMinst_addr, clk);
 input clk;
-input [31:0] inst_addr;
-output [31:0] inst;
-reg [31:0] inst;
+input [31:0] IMinst_addr;
+output [31:0] IMinst;
+reg [31:0] IMinst;
 
 reg [31:0] memdata [127:0];
 
@@ -21,7 +21,7 @@ initial begin
 
 always @(inst_addr)
     begin
-        inst = memdata[inst_addr];
+        IMinst = memdata[IMinst_addr];
     end
 
 endmodule
