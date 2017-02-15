@@ -11,7 +11,7 @@ module alu (inInst, clk, result, d_wr);
   output [31:0] result;
   reg [31:0] result;
   output reg d_wr;
-
+  reg [31:0] mem_temp;
 
   initial begin
     d_wr = 0;
@@ -46,6 +46,14 @@ module alu (inInst, clk, result, d_wr);
       rs = inInst[25:21];
     	rt = inInst[20:16];
     	addr = inInst[15:0];
+
+      if(inInst[31:26] == 6'b100011) begin
+        mem_temp <= 32'b0;
+        mem_temp[15:0] = inInst[15:0];
+        result = mem_temp + inInst[25:21];
+
+
+      end
     end
   end
 

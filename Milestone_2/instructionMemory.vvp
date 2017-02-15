@@ -1,0 +1,65 @@
+#! c:/iverilog-x64/bin/vvp
+:ivl_version "10.1 (stable)" "(v10_1_1)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0000000000822830 .scope module, "instmem" "instmem" 2 1;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 32 "IMinst"
+    .port_info 1 /INPUT 32 "IMinst_addr"
+    .port_info 2 /INPUT 1 "clk"
+v00000000008229b0_0 .var "IMinst", 31 0;
+o0000000000857928 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0000000000822a50_0 .net "IMinst_addr", 31 0, o0000000000857928;  0 drivers
+o0000000000857958 .functor BUFZ 1, C4<z>; HiZ drive
+v00000000008a85f0_0 .net "clk", 0 0, o0000000000857958;  0 drivers
+v00000000008a8690 .array "memdata", 0 127, 31 0;
+E_00000000001ee8b0 .event edge, v0000000000822a50_0;
+    .scope S_0000000000822830;
+T_0 ;
+    %pushi/vec4 16, 0, 32;
+    %ix/load 4, 0, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4a v00000000008a8690, 4, 0;
+    %pushi/vec4 35, 0, 32;
+    %ix/load 4, 1, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4a v00000000008a8690, 4, 0;
+    %pushi/vec4 43, 0, 32;
+    %ix/load 4, 2, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4a v00000000008a8690, 4, 0;
+    %pushi/vec4 4, 0, 32;
+    %ix/load 4, 3, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4a v00000000008a8690, 4, 0;
+    %pushi/vec4 5, 0, 32;
+    %ix/load 4, 4, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4a v00000000008a8690, 4, 0;
+    %pushi/vec4 0, 0, 32;
+    %ix/load 4, 5, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4a v00000000008a8690, 4, 0;
+    %pushi/vec4 0, 0, 32;
+    %ix/load 4, 6, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4a v00000000008a8690, 4, 0;
+    %end;
+    .thread T_0;
+    .scope S_0000000000822830;
+T_1 ;
+    %wait E_00000000001ee8b0;
+    %ix/getv 4, v0000000000822a50_0;
+    %load/vec4a v00000000008a8690, 4;
+    %store/vec4 v00000000008229b0_0, 0, 32;
+    %jmp T_1;
+    .thread T_1, $push;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "instructionMemory.v";

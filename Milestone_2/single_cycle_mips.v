@@ -1,7 +1,7 @@
-module single_cycle_mips (
+module single_cycle_mips(
   clk,
   rst_n,
-  inst_addr, inst, inst_temp,
+  inst_addr, inst,
   data_addr, data_in, data_out, data_wr
 );
   // INPUT
@@ -15,12 +15,34 @@ module single_cycle_mips (
   output reg [31:0] data_addr;
   output reg [31:0] inst_addr;
   output reg [31:0] inst_temp;
-  reg [31:0] mem_temp;
 
+  wire [4:0]   rd_addrA;
+  wire [4:0]   rd_addrB;
+  output reg [4:0]   wr_addr;
+  output reg [31:0]  wr_data;
+  wire        wr_en;
+  wire    clk;
+  output reg    nrst;
+  // Output port declaration
+  wire [31:0] rd_dataA;
+  wire [31:0] rd_dataB;
+
+  wire dclk;
+  wire [31:0] ddata_addr, ddata_out;
+  wire ddata_wr;
+  wire [31:0] ddata_in;
+
+  wire IMclk;
+  wire [31:0] IMinst_addr;
+  wire [31:0] IMinst;
+
+  output reg [31:0] inInst;
+  wire [31:0] result;
+  wire d_wr;
   regfile RegFile(wr_en,wr_addr,wr_data,rd_addrA,rd_addrB,rd_dataA,rd_dataB,clk,nrst);
-  instruction Instruction(IMinst, IMinst_addr, clk);
+  instmem Instruction(IMinst, IMinst_addr, clk);
   alu ALLAHU(inInst,clk,result,d_wr);
-  DataMemory dm(clk, data_addr, data_wr, data_in, data_out);
+  datamem dm(dclk, ddata_addr, ddata_wr, ddata_in, ddata_out);
 initial begin
   inst_temp <= 32'd0;
 end
@@ -41,12 +63,13 @@ always @(inst) begin
   end
   else begin
     data_wr = d_wr;
+    //LW
     if(inst[31:27] == 6'b100011) begin
-      mem_temp <= 32'b0;
-      mem_temp[15:0] = inst[15:0];
-      mem_temp = mem_temp + inst[25:21];
+      // mem_temp <= 32'b0;
+      // mem_temp[15:0] = inst[15:0];
+      // mem_temp = mem_temp + inst[25:21];
       wr_addr = inst[20:16];
-      data_addr = temp;
+      data_addr = result;
     end
   end
 end

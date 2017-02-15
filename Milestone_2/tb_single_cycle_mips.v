@@ -1,9 +1,9 @@
 `timescale 1ns/1ps
 `define CLK_PERIOD 50
-`define TIMEOUT 9 
+`define TIMEOUT 9
 `define WATCHDOG 500
 module tb_single_cycle_mips;
-  
+
   reg clk,rst_n;
   wire [31:0] inst_addr,inst;
   wire [31:0] data_addr,data_in,data_out;
@@ -44,7 +44,7 @@ module tb_single_cycle_mips;
   initial begin
     $vcdplusfile("tb_single_cycle_mips.vpd");
     $vcdpluson;
-    
+
 
     //init
     clk = 0;
@@ -80,7 +80,7 @@ module tb_single_cycle_mips;
         datamem.memory[(i*4)+1],
         datamem.memory[(i*4)+2],
         datamem.memory[(i*4)+3],
-        );*/ 
+        );*/
       res = {datamem.memory[(i*4)],
              datamem.memory[(i*4)+1],
              datamem.memory[(i*4)+2],
@@ -107,7 +107,7 @@ module tb_single_cycle_mips;
     $display("SLT: %d",slt);
     $display("BEQ: %d",beq);
     $display("BNE: %d",bne);
-    
+
     $finish;
   end
 
