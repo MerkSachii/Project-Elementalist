@@ -31,15 +31,20 @@ module alu (inInst, clk, result, d_wr, inRS, inRT);
 
       // Addition
       if (funct == 6'b100000) begin
-
+        result = inRS + inRT;
       end
       // Subtraction
       else if (funct == 6'b100010) begin
-
+        result = inRS - inRT;
       end
       // SLT
       else if (funct == 6'b101010) begin
-
+        if (inRS < inRT) begin
+        result = 31'd1;
+        end
+        else begin
+          result = 32'd0;
+        end
       end
     end
 
